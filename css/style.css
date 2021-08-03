@@ -1,0 +1,490 @@
+html{
+    box-sizing: border-box;
+}
+*, *::before, *::after{
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'lato', sans-serif;
+    line-height: 20px;
+    font-size: 15px;
+}
+a{
+    color: #000;
+    display: inline-block;/* Чтобы блочные элементы хорошо работали*/
+    text-decoration: none;/* убрать подчёркивание*/
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li{
+    display: inline-block;
+}
+.container{
+    max-width: 1030px; /*Ширина будет максимальной, если это возможно, иначе меньше  */
+    margin: 0 auto;  /* СВЕРХУ и снизу 0, СЛЕВА И СПРАВА АВТОМАТИЧЕСКИ*/
+    padding: 0 15px; /* СВЕРХУ и снизу 0, СЛЕВА И СПРАВА 15px, чтобы не прилипал к краям, когда экранм меньше 1000
+    поэтому нужно увеличить ширину*/
+}
+.header{
+    background-color: #e8ebf1;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.07);
+}
+.header__inner{
+    display: flex; /* элементы ведёт себя как блочные*/
+    justify-content: space-between;
+    align-items: center; /* Все элементы .header__inner по центру по высоте  */
+    height: 120px;
+}
+.header__logo a,
+.footer__logo a{/* только к ссылкам которые внутри headerlogo*/
+    color: #2aacc8;
+    font-size: 50px;
+    
+    font-weight: 400;/* толщина*/
+}
+.header__logo a span,
+.footer__logo a span{
+    color: #000;
+    font-weight: 700; /* толщина*/
+}
+.header__menu{
+    margin-right: 20px;
+}
+.header__menu li + li{ /* Дабавляет только для соседа li, первый li пропускаем*/
+    margin-left: 50px;
+}
+.header__menu a{
+    font-family: 'arial', sans-serif;
+    font-weight: 700; /* толщина*/
+    font-size: 13px;
+    line-height: 20px;
+    text-transform: uppercase; /* Все с большой буквы*/
+    padding-top: 9px;
+    padding-bottom: 13px;
+}
+.header__drop-down.drop-down{
+    margin-left: 39px;/* Чтобы расстояните у выпадающего списка было 50 px суммарно*/
+}
+.header__drop-down.drop-down + .header__drop-down.drop-down{/* а у твоего соседа li 12px*/
+    margin-left: 12px;
+}
+.header__drop-down.drop-down + .header__link-blog{
+    margin-left: 20px;
+}
+.header__drop-down{
+    position: relative;
+}
+.drop-down__list{ /* Выпад список*/
+    /* Анимация*/
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    
+    /* Убрали для анимации */
+    /* display: none; */
+
+    position: absolute;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid rgb(232, 235, 241);
+    border-top: none;
+    border-bottom: 5px solid #2aacc8;/*  Приоритет выше чем у Border'a выше*/
+    box-shadow: 0px 5px 0px 0px rgba(42, 172, 200, 0.004);
+    padding: 10px 5px;/* Сверху-снизу, слева-справа*/
+    z-index: 1;
+}
+.drop-down__list a{
+    padding: 12px 0 12px 11px; /* сверху, справа, снизу, слева */
+    font-weight: 400; /* Regular */
+    display: block; /* Делаем блочными */
+    text-transform: none;
+}
+.drop-down__list a:hover{
+    color: #2aacc8;
+}
+.header__drop-down .drop-down__list li{
+    margin-left: 0;
+    display: block;
+}
+.drop-down__list li + li a{
+    border-top: 1px solid red;/* #e7e7e7 */
+}
+/*  Элемент на который при наведении */
+.header__drop-down > a{/* > - Только на ссылки которые сразу в этом элементе, не как матрёшка*/
+    position: relative;
+    padding-left: 11px;
+    padding-right: 26px;
+    border-top: 5px solid transparent; /* transparent - прозрачный У всех ссылок DropDown уже есть 5px border*/
+}
+.header__drop-down > a::after{
+    content: '';
+    position: absolute;
+    background-image: url(..//images/down-arrow.png);
+    width: 7px;
+    height: 5px;
+    right: 8px;
+    top: 15px;
+}
+/*  При  наведении на на лишку, внутренний элемент dropdown list становится блочным*/
+.header__drop-down.drop-down:hover .drop-down__list{
+    /* Убрали для анимации */
+    /* display: block; */
+
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+    transition: all .3s;
+}
+/*  При  наведении на на лишку, а ссылка в которой написаноServices должна менять свой цвет и border...*/
+.header__drop-down.drop-down:hover > a{
+    color: #2aacc8;
+    border-top: 5px solid #2aacc8;
+    background-color: #fff;
+    transition: all .3s;
+}
+.header__menu-btn{
+    width: 30px;
+    display: none;
+}
+.header__menu-row{
+    width: 100%;
+    background-color: #000;
+    height: 4px;
+    margin-bottom: 4px;
+}
+/* ==============================Слайдер+++++++++++++++++++============= */
+.slider{
+    background-color: #81e4ed;
+    padding: 20px 0 10px; /* сверху, побокам, снизу*/
+}
+
+.slider__item{
+    background-image: url(../images/slider-bg.jpg);
+    min-height: 440px;
+    background-position: top center;
+    background-size: cover; /* замостить*/
+    background-repeat: no-repeat; /* чтобы картинка не дублировалась*/
+}
+.slider__item-title{
+    font-size: 50px;
+    line-height: 57px;
+    color: #fff;
+    width: 300px;
+    margin-left: 60px;
+    font-weight: 700;
+    padding-top: 90px;
+}
+.slick-dots li button{
+    width: 14px;
+    height: 14px;
+    background-color: rgba(98,98,98,.5);
+    border-radius: 50%;
+}
+.slick-dots li.slick-active button{/* ==========================================только к текущему баттону*/
+    background-color: #fff;
+}
+.slick-dots li button::before{
+    display: none;
+}
+.slick-dots li{
+    margin: 0 9px;
+    width: auto;
+    height: auto;
+}
+/* ==============================Section 2+++++++++++++++++++============= */
+.items{
+    background-color: #e8ebf1;
+    padding: 60px 0 50px;
+    border-bottom: 1px solid #d9d9d9;
+}
+.items__inner{
+    display: flex; /* раскинуть их */
+    justify-content: space-between;
+}
+.item{
+    width: 225px;
+    font-family: 'arial', sans-serif;
+}
+.item__title{
+    font-weight: 700; /* bold */
+    
+    text-transform: uppercase;
+    padding: 10px 0 0 60px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.item__icons{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #2aacc8;
+    border-radius: 50%; /* Делаем круг */
+    top: 0;
+    left: 0;
+    /* 1 вариант */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 2 вариант */
+/* .item__icons img{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+} */
+.telegram-icons{
+    margin-left: 5px;
+}
+.item__text{
+    font-size: 13px;
+    color: #363636;
+    margin-bottom: 29px;
+}
+.item__link{
+    color: #2aacc8;
+    padding-left: 15px;
+    font-size: 13px;
+    position: relative;
+}
+.item__link::before{
+    content: '';
+    position: absolute;
+    background-image: url(../images/icons/arrow-right.svg);
+    left: 0;
+    width: 5px;
+    height: 7px;
+    top: 5px;
+}
+/* ==============================Slider 2+++++++++++++++++++============= */
+.works__title,
+.testimonials-title,
+.clients-logo__title{
+    padding: 25px 0 15px 40px;
+    position: relative;
+    font-family: 'arial', sans-serif;
+    font-weight: 700; /* bold */
+    text-transform: uppercase;
+}
+.works__title::before,
+.testimonials-title::before,
+.clients-logo__title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    background-image: url(../images/slider/cursor.svg);
+    width: 14px;
+    height: 24px;
+}
+.works__inner{
+    padding: 20px 0px 40px;
+    border-top: 1px solid #dfe1e5;
+    border-bottom: 1px solid #dfe1e5;;
+}
+.slick-arrow{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Делаем круг */
+    background-color: #81e4ed;
+}
+.slick-arrow::before{
+    display: none; /* скрыть старые стрелочки */
+}
+.slick-arrow:hover, .slick-arrow:focus{
+    background-color: #81e4ed;
+}
+.slick-prev{
+    top: -27px;
+    right: 31px;
+    left: auto;
+}
+.slick-next{
+    top: -27px;
+    right: 0px;
+}
+.works__inner-item{
+    text-align: center;
+}
+.works__inner-box{
+    display: inline-block;
+    position: relative;
+}
+.works__inner-link{
+    background-color: #81e4ed;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden; /* скрыть */
+    height: 0;
+    transition: all .5s; /* замедлим элемент */
+}
+.works__inner-link a{
+    margin: 0 15px;
+}
+.works__inner-box:hover .works__inner-link{/* при наведении что-то происходит с .works__inner-link */
+    height: 80px;
+}
+.slick-list{/* Чтобы растянуть слайдеры по ширине */
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.clients{
+    padding: 0px 0 40px;
+    font-family: 'arial', sans-serif;
+}
+.clients__inner{
+    display: flex;
+    justify-content: space-between;
+}
+.testimonials{
+    max-width: 440px;
+}
+/* .testimonials-title{
+
+} */
+.testimonials p{
+    font-size: 14px;
+    line-height: 24px;
+    color: #363636;
+}
+.testimonials span{
+    display: block;
+    padding-top: 30px;
+    font-weight: 700;
+    font-style: italic;
+
+}
+.testimonials-title::before{
+    background-image: url(../images/clients/testi.svg);
+    width: 24px;
+    height: 23px; 
+}
+.clients-logo__title::before{
+    background-image: url(../images/clients/user.svg);
+    width: 24px;
+    height: 20px; 
+}
+.dowload{
+    margin-top: 40px;
+    padding: 30px 40px 30px 30px;
+    border: 1px solid #81e4ed;
+    background-color: #e8fcfe;
+    display: flex;
+    justify-content: space-between;
+}
+.dowload-text{
+    color: #363636;
+    font-size: 16px;
+    line-height: 26px;
+    max-width: 620px;
+}
+.dowload-btn a{
+    padding: 20px 20px 20px 70px;
+    font-weight: 700; /* bold*/
+    text-transform: uppercase;
+    font-size: 18px;
+    position: relative;
+    border: 1px solid rgb(42, 172, 200);
+    border-radius: 8px;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2),inset 0px 2px 1px 0px rgba(255, 255, 255, 0.1);
+    background: linear-gradient( to top, rgb(42,172,200) 0%, rgb(96,206,222) 15%, rgb(114,218,230) 50%, rgb(129,228,237) 100%);
+    
+}
+.dowload-btn a::before{
+    content: '';
+    position: absolute;
+    background-image: url(../images/clients/download.svg);
+    width: 28px;
+    height: 25px;
+    left: 19px;
+    top: 16px;
+}
+/* ====================================Footer===================================================== */
+.footer{
+    background-color: #e8ebf1;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    border-top: 1px solid #d9d9d9;
+    font-family: 'arial', sans-serif;
+}
+.footer__inner{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+.footer__items-title{
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.footer__item-content{
+    width: 240px;
+}
+.footer__text{
+    margin-top: 25px;
+    font-size: 14px;
+    color: #363636;
+}
+.footer__item-list{
+    width: 115px;
+}
+.footer__list{
+    padding-top: 10px;
+}
+.footer__list li{
+    display: block;
+    margin-bottom: 7px;
+}
+.footer__list a{
+    color: #363636;
+    font-size: 14px;
+    line-height: 26px;
+}
+.footer__item-contact{
+    width: 150px;
+}
+.footer__adress{
+    padding-top: 25px;
+    color: #363636;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+.footer__adress span{
+    display: block; /* Для переноса строк*/
+    font-weight: 700;
+}
+.footer__phone{
+    color: #363636;
+    font-size: 14px;
+}
+.footer__item-social{
+    width: 185px;
+}
+.footer__social{
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.footer__bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.footer__copy{
+    /* max-width: 650px; */
+    font-size: 13px;
+    line-height: 18px;
+    color: #363636;
+    /* min-width: 650px; */
+    padding-right: 10px;
+}
